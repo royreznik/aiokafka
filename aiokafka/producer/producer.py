@@ -207,8 +207,7 @@ class AIOKafkaProducer(object):
                 acks = -1
             elif acks not in ('all', -1):
                 raise ValueError(
-                    "acks={} not supported if enable_idempotence=True"
-                        .format(acks))
+                    "acks={} not supported if enable_idempotence=True".format(acks))
             self._txn_manager = TransactionManager(
                 transactional_id, transaction_timeout_ms, loop=loop)
         else:
