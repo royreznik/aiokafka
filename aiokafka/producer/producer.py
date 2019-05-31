@@ -208,7 +208,7 @@ class AIOKafkaProducer(object):
             elif acks not in ('all', -1):
                 raise ValueError(
                     "acks={} not supported if enable_idempotence=True"
-                    .format(acks))
+                        .format(acks))
             self._txn_manager = TransactionManager(
                 transactional_id, transaction_timeout_ms, loop=loop)
         else:
@@ -222,7 +222,7 @@ class AIOKafkaProducer(object):
         AIOKafkaProducer._PRODUCER_CLIENT_ID_SEQUENCE += 1
         if client_id is None:
             client_id = 'aiokafka-producer-%s' % \
-                AIOKafkaProducer._PRODUCER_CLIENT_ID_SEQUENCE
+                        AIOKafkaProducer._PRODUCER_CLIENT_ID_SEQUENCE
 
         self._key_serializer = key_serializer
         self._value_serializer = value_serializer
@@ -411,7 +411,8 @@ class AIOKafkaProducer(object):
             'Null messages require kafka >= 0.8.1')
         assert not (value is None and key is None), \
             'Need at least one: key or value'
-
+        assert self.client.cluster.brokers(), \
+            'Need to start the producer before sending data'
         # first make sure the metadata for the topic is available
         yield from self.client._wait_on_metadata(topic)
 
